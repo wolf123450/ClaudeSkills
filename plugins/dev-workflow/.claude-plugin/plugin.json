@@ -1,0 +1,9 @@
+{
+  "name": "dev-workflow",
+  "description": "Playwright testing tips and a human-in-the-loop demo/verification workflow",
+  "version": "0.1.0",
+  "author": {
+    "name": "Clint Day",
+    "email": "wolf123450@gmail.com"
+  }
+}
