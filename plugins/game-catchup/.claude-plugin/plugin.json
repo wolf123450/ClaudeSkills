@@ -1,0 +1,9 @@
+{
+  "name": "game-catchup",
+  "description": "Generate a structured 'what you missed' recap for a game you haven't played in a while",
+  "version": "1.0.0",
+  "author": {
+    "name": "Clint Day",
+    "email": "wolf123450@gmail.com"
+  }
+}
