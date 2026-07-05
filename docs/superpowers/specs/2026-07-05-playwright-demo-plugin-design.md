@@ -17,14 +17,22 @@ plugin marketplace**: this repo becomes both a marketplace and the source for it
 future skill/agent additions can be installed and updated through the normal
 `/plugin marketplace add` + `claude plugin update` flow instead of manual zip files.
 
+As part of this migration, the existing `game-catchup.skill` is unpacked and brought into the same
+marketplace as its own plugin (`game-catchup`), so the repo has a single, consistent distribution
+mechanism instead of one skill on the old zip convention and everything else on the new one. It's
+unrelated to Playwright/demo work (it's a Claude.ai research skill for "what did I miss in this
+game" recaps), so it gets its own plugin rather than joining `dev-workflow` — consistent with the
+"unrelated skills get their own plugin" principle below. The root-level `game-catchup.skill` zip is
+removed once its content lives under `plugins/game-catchup/`.
+
 ## Non-goals
 
-- Migrating `game-catchup.skill` into the new plugin structure. It's left untouched; can be done
-  as a follow-up.
 - Building a new custom Playwright wrapper library or test framework — this is documentation/process
   (skills) plus one subagent definition, not new application code.
 - Anything Tauri-specific — `~/.agents/skills/tauri-playwright` already covers WebView-bridge E2E
   testing for Tauri apps. `playwright-testing` is for ordinary web apps opened in a browser.
+- Changing any of `game-catchup`'s actual skill content — this is a straight lift-and-shift from
+  the zip into the plugin structure, not a rewrite.
 
 ## Repo structure
 
@@ -43,14 +51,20 @@ ClaudeSkills/
           SKILL.md
       agents/
         playwright-runner.md
-  game-catchup.skill        # untouched
+    game-catchup/
+      .claude-plugin/
+        plugin.json
+      skills/
+        game-catchup/
+          SKILL.md           # content unpacked from the old game-catchup.skill zip
   README.md                 # new: explains the marketplace + install/update flow
 ```
 
 Both new skills and the new subagent ship inside one plugin, `dev-workflow`, rather than as
 separate plugins — they're both part of "how Claude verifies and demonstrates its own work" and
-are expected to evolve together. Unrelated future skill ideas get their own plugin entries in
-`marketplace.json` later.
+are expected to evolve together. `game-catchup` is unrelated, so it's migrated in as its own
+plugin. Future unrelated skill ideas get their own plugin entries in `marketplace.json` the same
+way.
 
 ## marketplace.json
 
@@ -69,6 +83,12 @@ are expected to evolve together. Unrelated future skill ideas get their own plug
       "description": "Playwright testing tips and a human-in-the-loop demo/verification workflow for Claude Code",
       "source": "./plugins/dev-workflow",
       "category": "development"
+    },
+    {
+      "name": "game-catchup",
+      "description": "Generate a structured 'what you missed' recap for a game you haven't played in a while",
+      "source": "./plugins/game-catchup",
+      "category": "productivity"
     }
   ]
 }
@@ -87,6 +107,24 @@ are expected to evolve together. Unrelated future skill ideas get their own plug
   }
 }
 ```
+
+## plugins/game-catchup/.claude-plugin/plugin.json
+
+```json
+{
+  "name": "game-catchup",
+  "description": "Generate a structured 'what you missed' recap for a game you haven't played in a while",
+  "version": "1.0.0",
+  "author": {
+    "name": "Clint Day",
+    "email": "wolf123450@gmail.com"
+  }
+}
+```
+
+`skills/game-catchup/SKILL.md` is an unmodified copy of the `SKILL.md` currently packaged inside
+`game-catchup.skill` (frontmatter + workflow content unchanged) — this is a packaging migration
+only, not a content revision.
 
 ## Skill: playwright-testing
 
@@ -158,6 +196,7 @@ Governs closing out a change with a human explicitly in the loop:
 ```
 /plugin marketplace add wolf123450/ClaudeSkills
 /plugin install dev-workflow@claude-skills
+/plugin install game-catchup@claude-skills
 ```
 
 Subsequent changes pushed to the GitHub repo are picked up via the normal `claude plugin update`
@@ -168,14 +207,19 @@ flow — no manual re-zipping or redistribution step.
 - Create a new **public** GitHub repository `wolf123450/ClaudeSkills` via `gh repo create`, add it
   as `origin`, and push the existing `master` branch.
 - No secrets are involved (skills/agents/marketplace metadata only), so public is fine.
+- Remove the root-level `game-catchup.skill` zip once its contents are copied into
+  `plugins/game-catchup/skills/game-catchup/SKILL.md` — it's fully superseded by the plugin.
 
 ## Testing / verification
 
 - No application code is being written, so there's no automated test suite to run. Verification
   is:
-  - `marketplace.json` and `plugin.json` are valid JSON and match the schema fields used by
-    Anthropic's own official marketplace (verified by inspecting installed examples in
+  - `marketplace.json` and both `plugin.json` files are valid JSON and match the schema fields used
+    by Anthropic's own official marketplace (verified by inspecting installed examples in
     `~/.claude/plugins/marketplaces/claude-plugins-official`).
+  - `game-catchup`'s migrated `SKILL.md` diffs identical (content-wise) against the version
+    extracted from the original `game-catchup.skill` zip.
   - After pushing, actually run `/plugin marketplace add wolf123450/ClaudeSkills` and
-    `/plugin install dev-workflow@claude-skills` in a session to confirm the plugin installs
-    cleanly and both skills + the `playwright-runner` agent type become available.
+    `/plugin install dev-workflow@claude-skills` + `/plugin install game-catchup@claude-skills` in
+    a session to confirm both plugins install cleanly and both skills + the `playwright-runner`
+    agent type become available.
