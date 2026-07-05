@@ -1,0 +1,23 @@
+{
+  "$schema": "https://anthropic.com/claude-code/marketplace.schema.json",
+  "name": "claude-skills",
+  "description": "Clint's personal Claude Code plugin marketplace",
+  "owner": {
+    "name": "Clint Day",
+    "email": "wolf123450@gmail.com"
+  },
+  "plugins": [
+    {
+      "name": "dev-workflow",
+      "description": "Playwright testing tips and a human-in-the-loop demo/verification workflow for Claude Code",
+      "source": "./plugins/dev-workflow",
+      "category": "development"
+    },
+    {
+      "name": "game-catchup",
+      "description": "Generate a structured 'what you missed' recap for a game you haven't played in a while",
+      "source": "./plugins/game-catchup",
+      "category": "productivity"
+    }
+  ]
+}
