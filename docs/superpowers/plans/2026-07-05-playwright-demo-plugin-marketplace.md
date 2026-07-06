@@ -30,7 +30,7 @@
 **Interfaces:**
 - Produces: a validated plugin directory `plugins/game-catchup/` that Task 5 (marketplace.json) will reference via `"source": "./plugins/game-catchup"`.
 
-- [ ] **Step 1: Extract the original zip to a scratch dir for a diff baseline**
+- [x] **Step 1: Extract the original zip to a scratch dir for a diff baseline**
 
 ```bash
 rm -rf "/c/Users/Clint/AppData/Local/Temp/claude/D--Projects-ClaudeSkills/ebbdeea6-c93c-4fa2-b135-833ecb40d727/scratchpad/gc-baseline"
@@ -42,14 +42,14 @@ find . -type f
 
 Expected: prints `./game-catchup/SKILL.md` and nothing else.
 
-- [ ] **Step 2: Create the plugin directory structure**
+- [x] **Step 2: Create the plugin directory structure**
 
 ```bash
 mkdir -p "D:/Projects/ClaudeSkills/plugins/game-catchup/.claude-plugin"
 mkdir -p "D:/Projects/ClaudeSkills/plugins/game-catchup/skills/game-catchup"
 ```
 
-- [ ] **Step 3: Write `plugins/game-catchup/skills/game-catchup/SKILL.md`**
+- [x] **Step 3: Write `plugins/game-catchup/skills/game-catchup/SKILL.md`**
 
 Write the file with exactly this content (verbatim copy of the zip's `SKILL.md` — no wording changes):
 
@@ -149,7 +149,7 @@ For minor patches between major updates, group them: "**Between [A] and [B] — 
 **Live service game with constant updates:** Group into seasons or content cycles rather than individual patches. Focus on what changed about the game's structure and meta, not every individual balance tweak.
 ```
 
-- [ ] **Step 4: Diff the new file against the extracted baseline**
+- [x] **Step 4: Diff the new file against the extracted baseline**
 
 ```bash
 diff "/c/Users/Clint/AppData/Local/Temp/claude/D--Projects-ClaudeSkills/ebbdeea6-c93c-4fa2-b135-833ecb40d727/scratchpad/gc-baseline/game-catchup/SKILL.md" "/d/Projects/ClaudeSkills/plugins/game-catchup/skills/game-catchup/SKILL.md"
@@ -157,7 +157,7 @@ diff "/c/Users/Clint/AppData/Local/Temp/claude/D--Projects-ClaudeSkills/ebbdeea6
 
 Expected: no output (files identical).
 
-- [ ] **Step 5: Write `plugins/game-catchup/.claude-plugin/plugin.json`**
+- [x] **Step 5: Write `plugins/game-catchup/.claude-plugin/plugin.json`**
 
 ```json
 {
@@ -171,7 +171,7 @@ Expected: no output (files identical).
 }
 ```
 
-- [ ] **Step 6: Validate the plugin**
+- [x] **Step 6: Validate the plugin**
 
 ```bash
 claude plugin validate "D:/Projects/ClaudeSkills/plugins/game-catchup"
@@ -179,14 +179,14 @@ claude plugin validate "D:/Projects/ClaudeSkills/plugins/game-catchup"
 
 Expected: `Validating plugin manifest: ...plugin.json` followed by a clean pass (no warnings, since `version` and `author` are both present). Exit code 0.
 
-- [ ] **Step 7: Remove the old zip**
+- [x] **Step 7: Remove the old zip**
 
 ```bash
 cd "D:/Projects/ClaudeSkills"
 git rm game-catchup.skill
 ```
 
-- [ ] **Step 8: Commit**
+- [x] **Step 8: Commit**
 
 ```bash
 cd "D:/Projects/ClaudeSkills"
@@ -211,7 +211,7 @@ EOF
 - Produces: `plugins/dev-workflow/` plugin directory that Tasks 3 and 4 add more files into, and that Task 5's `marketplace.json` references via `"source": "./plugins/dev-workflow"`.
 - Consumes: none from other tasks.
 
-- [ ] **Step 1: Create the plugin directory structure**
+- [x] **Step 1: Create the plugin directory structure**
 
 ```bash
 mkdir -p "D:/Projects/ClaudeSkills/plugins/dev-workflow/.claude-plugin"
@@ -219,7 +219,7 @@ mkdir -p "D:/Projects/ClaudeSkills/plugins/dev-workflow/skills/playwright-testin
 mkdir -p "D:/Projects/ClaudeSkills/plugins/dev-workflow/agents"
 ```
 
-- [ ] **Step 2: Write `plugins/dev-workflow/.claude-plugin/plugin.json`**
+- [x] **Step 2: Write `plugins/dev-workflow/.claude-plugin/plugin.json`**
 
 ```json
 {
@@ -233,7 +233,7 @@ mkdir -p "D:/Projects/ClaudeSkills/plugins/dev-workflow/agents"
 }
 ```
 
-- [ ] **Step 3: Write `plugins/dev-workflow/skills/playwright-testing/SKILL.md`**
+- [x] **Step 3: Write `plugins/dev-workflow/skills/playwright-testing/SKILL.md`**
 
 ```markdown
 ---
@@ -350,7 +350,7 @@ The `playwright-runner` subagent (shipped with this plugin) is scoped to exactly
 | `browser_snapshot` output is huge | Scope to a specific frame/element ref rather than the whole page when you already know where you're looking |
 ```
 
-- [ ] **Step 4: Validate the plugin**
+- [x] **Step 4: Validate the plugin**
 
 ```bash
 claude plugin validate "D:/Projects/ClaudeSkills/plugins/dev-workflow"
@@ -358,7 +358,7 @@ claude plugin validate "D:/Projects/ClaudeSkills/plugins/dev-workflow"
 
 Expected: clean pass, no warnings (an empty `agents/` directory is fine at this point — Task 3 fills it in).
 
-- [ ] **Step 5: Commit**
+- [x] **Step 5: Commit**
 
 ```bash
 cd "D:/Projects/ClaudeSkills"
@@ -382,7 +382,7 @@ EOF
 - Consumes: nothing from other tasks (standalone agent definition).
 - Produces: the `playwright-runner` agent type referenced by name in `playwright-testing/SKILL.md`'s delegation logic (Task 2) and in `demoing-work/SKILL.md`'s UI-walkthrough step (Task 4).
 
-- [ ] **Step 1: Write `plugins/dev-workflow/agents/playwright-runner.md`**
+- [x] **Step 1: Write `plugins/dev-workflow/agents/playwright-runner.md`**
 
 ```markdown
 ---
@@ -418,7 +418,7 @@ Report back only:
 Do not paste full terminal output, full stack traces, or full accessibility snapshots back to the caller — summarize.
 ```
 
-- [ ] **Step 2: Validate the plugin**
+- [x] **Step 2: Validate the plugin**
 
 ```bash
 claude plugin validate "D:/Projects/ClaudeSkills/plugins/dev-workflow"
@@ -426,7 +426,7 @@ claude plugin validate "D:/Projects/ClaudeSkills/plugins/dev-workflow"
 
 Expected: clean pass, no warnings.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "D:/Projects/ClaudeSkills"
@@ -450,7 +450,7 @@ EOF
 - Consumes: references the `playwright-runner` agent (Task 3) and the `playwright-testing` skill (Task 2) by name for the UI-walkthrough step. References this project's existing `verify` / `verification-before-completion` skills by name (already installed elsewhere; not part of this plugin).
 - Produces: the `demoing-work` skill, complete for this plugin.
 
-- [ ] **Step 1: Create the skill directory and write `plugins/dev-workflow/skills/demoing-work/SKILL.md`**
+- [x] **Step 1: Create the skill directory and write `plugins/dev-workflow/skills/demoing-work/SKILL.md`**
 
 ```bash
 mkdir -p "D:/Projects/ClaudeSkills/plugins/dev-workflow/skills/demoing-work"
@@ -494,7 +494,7 @@ Claude does not get to unilaterally decide a user-facing change is complete. A g
 **Change has no observable behavior difference (e.g. pure refactor):** Say so plainly instead of forcing a demo — confirm via the automated checks and a brief explanation of what was restructured, and note there's nothing new to visually demo.
 ```
 
-- [ ] **Step 2: Validate the plugin**
+- [x] **Step 2: Validate the plugin**
 
 ```bash
 claude plugin validate "D:/Projects/ClaudeSkills/plugins/dev-workflow"
@@ -502,7 +502,7 @@ claude plugin validate "D:/Projects/ClaudeSkills/plugins/dev-workflow"
 
 Expected: clean pass, no warnings. This is the full `dev-workflow` plugin now (plugin.json + 2 skills + 1 agent).
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "D:/Projects/ClaudeSkills"
@@ -526,7 +526,7 @@ EOF
 - Consumes: `plugins/dev-workflow` (Tasks 2-4) and `plugins/game-catchup` (Task 1) must already exist on disk — this task references both by relative path.
 - Produces: a validated marketplace manifest, the last piece needed before Task 7's real install test.
 
-- [ ] **Step 1: Create the directory and write `.claude-plugin/marketplace.json`**
+- [x] **Step 1: Create the directory and write `.claude-plugin/marketplace.json`**
 
 ```bash
 mkdir -p "D:/Projects/ClaudeSkills/.claude-plugin"
@@ -558,7 +558,7 @@ mkdir -p "D:/Projects/ClaudeSkills/.claude-plugin"
 }
 ```
 
-- [ ] **Step 2: Validate the whole marketplace**
+- [x] **Step 2: Validate the whole marketplace**
 
 ```bash
 claude plugin validate "D:/Projects/ClaudeSkills"
@@ -566,7 +566,7 @@ claude plugin validate "D:/Projects/ClaudeSkills"
 
 Expected: `Validating marketplace manifest: ...marketplace.json` followed by a clean pass covering both plugin entries, no warnings, exit code 0.
 
-- [ ] **Step 3: Commit**
+- [x] **Step 3: Commit**
 
 ```bash
 cd "D:/Projects/ClaudeSkills"
@@ -590,7 +590,7 @@ EOF
 - Consumes: the final marketplace name (`claude-skills`) and plugin names (`dev-workflow`, `game-catchup`) from Task 5.
 - Produces: user-facing install/update instructions; no other task depends on this one.
 
-- [ ] **Step 1: Write `README.md`**
+- [x] **Step 1: Write `README.md`**
 
 ```markdown
 # ClaudeSkills
@@ -639,7 +639,7 @@ or redistribution step.
    committing.
 ```
 
-- [ ] **Step 2: Commit**
+- [x] **Step 2: Commit**
 
 ```bash
 cd "D:/Projects/ClaudeSkills"
@@ -662,7 +662,7 @@ EOF
 - Consumes: the complete repo state from Tasks 1-6 (marketplace.json + both validated plugins + README).
 - Produces: a live, pushed marketplace that `claude plugin install` can pull from — the final deliverable of this plan.
 
-- [ ] **Step 1: Create the GitHub repo and push**
+- [x] **Step 1: Create the GitHub repo and push**
 
 ```bash
 cd "D:/Projects/ClaudeSkills"
@@ -672,7 +672,7 @@ git push -u origin master
 
 Expected: `gh repo create` reports the new repo URL; `git push` reports `master -> master` with no errors.
 
-- [ ] **Step 2: Add the marketplace from the pushed repo**
+- [x] **Step 2: Add the marketplace from the pushed repo**
 
 ```bash
 claude plugin marketplace add wolf123450/ClaudeSkills
@@ -680,7 +680,7 @@ claude plugin marketplace add wolf123450/ClaudeSkills
 
 Expected: confirmation that the `claude-skills` marketplace was added (matching the `name` field in `marketplace.json`).
 
-- [ ] **Step 3: Install both plugins**
+- [x] **Step 3: Install both plugins**
 
 ```bash
 claude plugin install dev-workflow@claude-skills
@@ -689,7 +689,7 @@ claude plugin install game-catchup@claude-skills
 
 Expected: both report successful installation.
 
-- [ ] **Step 4: Confirm they're listed**
+- [x] **Step 4: Confirm they're listed**
 
 ```bash
 claude plugin list
@@ -697,7 +697,7 @@ claude plugin list
 
 Expected: output includes both `dev-workflow@claude-skills` and `game-catchup@claude-skills`.
 
-- [ ] **Step 5: Note the restart requirement**
+- [x] **Step 5: Note the restart requirement**
 
 Restart the current interactive Claude Code session (this CLI-based install happened out-of-band
 from any running session's already-loaded skill/agent list). After restart, confirm the
