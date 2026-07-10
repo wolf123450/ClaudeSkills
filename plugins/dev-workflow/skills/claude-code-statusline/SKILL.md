@@ -7,7 +7,7 @@ description: Use when the user wants to set up, install, or replicate a Claude C
 
 ## Overview
 
-A `statusLine` command in Claude Code settings receives a JSON payload on stdin per render and prints the line shown at the bottom of the session. This skill installs a bash statusline that surfaces the numbers that matter for session-cost awareness: model, cumulative session tokens, context-window used % (traffic-light colored), and 5-hour/7-day rate-limit usage. Pairs well with `claude-code-token-optimization` — the statusline is how you'd notice a session needs `/clear`.
+A `statusLine` command in Claude Code settings receives a JSON payload on stdin per render and prints the line shown at the bottom of the session. This skill installs a bash statusline that surfaces the numbers that matter for session-cost awareness: model, cumulative session tokens, context-window used % (traffic-light colored), and 5-hour/7-day rate-limit usage with a countdown to the next 5-hour reset. Pairs well with `claude-code-token-optimization` — the statusline is how you'd notice a session needs `/clear`.
 
 ## Process
 
@@ -23,7 +23,7 @@ A `statusLine` command in Claude Code settings receives a JSON payload on stdin 
    ```
    Adjust the path for the target OS/shell — use the POSIX-style path Git Bash expects on Windows (`/c/Users/...`), or the native path on macOS/Linux.
 3. **Make it executable** on macOS/Linux: `chmod +x ~/.claude/statusline-command.sh` (harmless no-op on Windows Git Bash).
-4. **Verify.** Start a session and confirm the status line renders `<model> | <N>k tok | ctx:<N>% (<N>% left) | 5h:<N>% 7d:<N>%` at the bottom, with colors: green/yellow/red context and rate-limit thresholds at 50%/75%.
+4. **Verify.** Start a session and confirm the status line renders `<model> | <N>k tok | ctx:<N>% (<N>% left) | 5h:<N>% (resets <N>h<N>m) 7d:<N>%` at the bottom, with colors: green/yellow/red context and rate-limit thresholds at 50%/75%. The reset countdown only appears once `resets_at` shows up in the payload (not present on the very first render of a session).
 
 ## What the script reads
 
@@ -36,10 +36,11 @@ The statusline command receives this shape on stdin (fields used by this script;
 .context_window.total_input_tokens
 .context_window.total_output_tokens
 .rate_limits.five_hour.used_percentage
+.rate_limits.five_hour.resets_at
 .rate_limits.seven_day.used_percentage
 ```
 
-Any field can be absent (e.g. rate limits on a plan without them) — the script omits that segment rather than erroring, via `// empty` jq defaults.
+Any field can be absent (e.g. rate limits on a plan without them) — the script omits that segment rather than erroring, via `// empty` jq defaults. `resets_at` is a Unix epoch-seconds timestamp; the script converts it to a `<N>h<N>m` countdown at render time using the local `date +%s`.
 
 ## Quick reference
 
@@ -49,6 +50,7 @@ Any field can be absent (e.g. rate limits on a plan without them) — the script
 | Session tokens | `total_tokens > 0` | White; abbreviated to k/M |
 | Context % | `used_percentage` present | Green `<50`, yellow `50–74`, red `≥75` |
 | Rate limits | `five_hour`/`seven_day` present | Dim `<50`, yellow `50–74`, red `≥75` |
+| 5h reset countdown | `five_hour.resets_at` present | Same color as the 5h segment; `<N>h<N>m` (or `<N>m` under an hour) |
 
 ## Common mistakes
 
