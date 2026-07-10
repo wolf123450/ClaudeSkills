@@ -20,6 +20,7 @@ total_in=$(echo "$input" | jq -r '.context_window.total_input_tokens  // 0')
 total_out=$(echo "$input"| jq -r '.context_window.total_output_tokens // 0')
 five_h=$(echo "$input"   | jq -r '.rate_limits.five_hour.used_percentage  // empty')
 seven_d=$(echo "$input"  | jq -r '.rate_limits.seven_day.used_percentage  // empty')
+five_h_resets_at=$(echo "$input" | jq -r '.rate_limits.five_hour.resets_at // empty')
 
 # --- Model (cyan) ---
 out="${CYAN}${model}${RESET}"
@@ -55,7 +56,21 @@ rate_str=""
 if [ -n "$five_h" ]; then
     pct=$(printf '%.0f' "$five_h")
     [ "$pct" -ge 75 ] && col="$RED" || { [ "$pct" -ge 50 ] && col="$YELLOW" || col="$DIM"; }
-    rate_str="${col}5h:${pct}%${RESET}"
+    reset_str=""
+    if [ -n "$five_h_resets_at" ]; then
+        now=$(date +%s)
+        remaining=$(( five_h_resets_at - now ))
+        if [ "$remaining" -gt 0 ]; then
+            rh=$(( remaining / 3600 ))
+            rm=$(( (remaining % 3600) / 60 ))
+            if [ "$rh" -gt 0 ]; then
+                reset_str=" (resets ${rh}h${rm}m)"
+            else
+                reset_str=" (resets ${rm}m)"
+            fi
+        fi
+    fi
+    rate_str="${col}5h:${pct}%${reset_str}${RESET}"
 fi
 if [ -n "$seven_d" ]; then
     pct=$(printf '%.0f' "$seven_d")
