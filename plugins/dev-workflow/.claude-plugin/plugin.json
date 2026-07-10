@@ -1,7 +1,7 @@
 {
   "name": "dev-workflow",
-  "description": "Playwright testing tips and a human-in-the-loop demo/verification workflow",
-  "version": "0.1.0",
+  "description": "Playwright testing, human-in-the-loop demo/verification workflow, Claude Code environment setup (token optimization, status line), and Godot 4 C# project setup",
+  "version": "0.2.0",
   "author": {
     "name": "Clint Day",
     "email": "wolf123450@gmail.com"

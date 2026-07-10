@@ -9,7 +9,7 @@
   "plugins": [
     {
       "name": "dev-workflow",
-      "description": "Playwright testing tips and a human-in-the-loop demo/verification workflow for Claude Code",
+      "description": "Playwright testing, human-in-the-loop demo/verification workflow, Claude Code environment setup (token optimization, status line), and Godot 4 C# project setup",
       "source": "./plugins/dev-workflow",
       "category": "development"
     },
