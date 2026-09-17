@@ -11,6 +11,11 @@ auto-updating plugins instead of hand-zipped `.skill` files.
   explicit confirmation.
 - **`game-catchup`** — Generates a structured "what you missed" recap for a game you haven't
   played in a while.
+- **`feature-maturity`** — Shared vocabulary for how done a feature actually is: a Completeness
+  ladder (Spike/Prototype/Functional/Finished) plus independent quality axes (Polish, Robustness,
+  Architecture, Verification, Documentation, Accessibility). Use for scoping work, self-reporting
+  before declaring something "done," auditing existing code, or resolving disagreements about
+  whether something is really Finished/Polished/Hardened.
 
 ## Install
 
@@ -18,6 +23,7 @@ auto-updating plugins instead of hand-zipped `.skill` files.
 /plugin marketplace add wolf123450/ClaudeSkills
 /plugin install dev-workflow@claude-skills
 /plugin install game-catchup@claude-skills
+/plugin install feature-maturity@claude-skills
 ```
 
 (Or via the `claude` CLI: `claude plugin marketplace add wolf123450/ClaudeSkills`, then

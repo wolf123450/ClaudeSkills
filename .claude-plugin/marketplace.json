@@ -18,6 +18,12 @@
       "description": "Generate a structured 'what you missed' recap for a game you haven't played in a while",
       "source": "./plugins/game-catchup",
       "category": "productivity"
+    },
+    {
+      "name": "feature-maturity",
+      "description": "Shared vocabulary for how done a feature is: a Completeness ladder (Spike/Prototype/Functional/Finished) plus independent quality axes (Polish, Robustness, Architecture, Verification, Documentation, Accessibility)",
+      "source": "./plugins/feature-maturity",
+      "category": "development"
     }
   ]
 }
