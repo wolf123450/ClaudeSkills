@@ -1,0 +1,9 @@
+{
+  "name": "feature-maturity",
+  "description": "Shared vocabulary for how done a feature is: a Completeness ladder (Spike/Prototype/Functional/Finished) plus independent quality axes (Polish, Robustness, Architecture, Verification, Documentation, Accessibility)",
+  "version": "1.0.0",
+  "author": {
+    "name": "Clint Day",
+    "email": "wolf123450@gmail.com"
+  }
+}
