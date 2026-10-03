@@ -24,6 +24,12 @@
       "description": "Shared vocabulary for how done a feature is: a Completeness ladder (Spike/Prototype/Functional/Finished) plus independent quality axes (Polish, Robustness, Architecture, Verification, Documentation, Accessibility)",
       "source": "./plugins/feature-maturity",
       "category": "development"
+    },
+    {
+      "name": "desktop-statusline",
+      "description": "Shows the terminal status line (model, session tokens, context %, 5h/7d rate limits) as a band above the prompt in the Claude desktop app",
+      "source": "./plugins/desktop-statusline",
+      "category": "productivity"
     }
   ]
 }
