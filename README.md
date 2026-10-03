@@ -16,6 +16,9 @@ auto-updating plugins instead of hand-zipped `.skill` files.
   Architecture, Verification, Documentation, Accessibility). Use for scoping work, self-reporting
   before declaring something "done," auditing existing code, or resolving disagreements about
   whether something is really Finished/Polished/Hardened.
+- **`desktop-statusline`** — A hooks-module mod that mirrors the terminal status line (model,
+  session tokens, context %, 5h/7d rate limits with reset countdown) as a band above the prompt
+  in the Claude desktop app's Code tab. Hidden in the terminal, where the real status line runs.
 
 ## Install
 
@@ -24,6 +27,7 @@ auto-updating plugins instead of hand-zipped `.skill` files.
 /plugin install dev-workflow@claude-skills
 /plugin install game-catchup@claude-skills
 /plugin install feature-maturity@claude-skills
+/plugin install desktop-statusline@claude-skills
 ```
 
 (Or via the `claude` CLI: `claude plugin marketplace add wolf123450/ClaudeSkills`, then
