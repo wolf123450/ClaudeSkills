@@ -1,0 +1,10 @@
+{
+  "name": "subagent-tree",
+  "description": "Side pane showing subagents as a tree with last-tool activity, tokens and runtime per agent, click-through detail, search, and saved history of past sessions",
+  "version": "0.1.1",
+  "author": {
+    "name": "Clint Day",
+    "email": "wolf123450@gmail.com"
+  },
+  "types": "./types/index.d.ts"
+}
