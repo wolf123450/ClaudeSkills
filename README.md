@@ -16,7 +16,7 @@ auto-updating plugins instead of hand-zipped `.skill` files.
   Architecture, Verification, Documentation, Accessibility). Use for scoping work, self-reporting
   before declaring something "done," auditing existing code, or resolving disagreements about
   whether something is really Finished/Polished/Hardened.
-- **`desktop-statusline`** � A hooks-module mod that mirrors the terminal status line (model,
+- **`desktop-statusline`** — A hooks-module mod that mirrors the terminal status line (model,
   session tokens, context %, 5h/7d rate limits with reset countdown) as a band above the prompt
   in the Claude desktop app's Code tab. Hidden in the terminal, where the real status line runs.
 - **`subagent-tree`** — A hooks-module mod that adds an "Agents" side pane: subagents in a tree with
