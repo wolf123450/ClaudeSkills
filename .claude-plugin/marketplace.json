@@ -30,6 +30,12 @@
       "description": "Shows the terminal status line (model, session tokens, context %, 5h/7d rate limits) as a band above the prompt in the Claude desktop app",
       "source": "./plugins/desktop-statusline",
       "category": "productivity"
+    },
+    {
+      "name": "subagent-tree",
+      "description": "Side pane showing subagents as a tree with last-tool activity, tokens and runtime per agent, click-through detail, search, and saved history of past sessions",
+      "source": "./plugins/subagent-tree",
+      "category": "productivity"
     }
   ]
 }

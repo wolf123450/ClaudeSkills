@@ -16,9 +16,12 @@ auto-updating plugins instead of hand-zipped `.skill` files.
   Architecture, Verification, Documentation, Accessibility). Use for scoping work, self-reporting
   before declaring something "done," auditing existing code, or resolving disagreements about
   whether something is really Finished/Polished/Hardened.
-- **`desktop-statusline`** — A hooks-module mod that mirrors the terminal status line (model,
+- **`desktop-statusline`** ï¿½ A hooks-module mod that mirrors the terminal status line (model,
   session tokens, context %, 5h/7d rate limits with reset countdown) as a band above the prompt
   in the Claude desktop app's Code tab. Hidden in the terminal, where the real status line runs.
+- **`subagent-tree`** â€” A hooks-module mod that adds an "Agents" side pane: subagents in a tree with
+  the last tool and how long ago it ran, tokens and runtime per agent, click-through detail (prompt,
+  tool log, result), search, and saved history of past sessions.
 
 ## Install
 
@@ -28,6 +31,7 @@ auto-updating plugins instead of hand-zipped `.skill` files.
 /plugin install game-catchup@claude-skills
 /plugin install feature-maturity@claude-skills
 /plugin install desktop-statusline@claude-skills
+/plugin install subagent-tree@claude-skills
 ```
 
 (Or via the `claude` CLI: `claude plugin marketplace add wolf123450/ClaudeSkills`, then
