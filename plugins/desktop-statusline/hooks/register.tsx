@@ -22,6 +22,13 @@ const formatReset = (resetsAt: string | undefined, nowMs: number) => {
   return h > 0 ? ` (resets ${h}h${m}m)` : ` (resets ${m}m)`
 }
 
+const formatClock = (ms: number) => {
+  if (!ms) return '--:--:--'
+  const d = new Date(ms)
+  const pad = (n: number) => String(n).padStart(2, '0')
+  return `${pad(d.getHours())}:${pad(d.getMinutes())}:${pad(d.getSeconds())}`
+}
+
 async function refresh($: EngineInterface) {
   const [usage, model, t] = await Promise.all([$.session.usage(), $.session.model(), $.clock.now()])
   const snap: Snapshot = {
@@ -69,7 +76,7 @@ export const register: Register = on => {
 
     const { total } = await read($, tokens)
     const nowMs = await read($, now)
-    const { Box, Text } = $.ui.resolve(e)
+    const { Box, Text, Button } = $.ui.resolve(e)
 
     const parts: { key: string; text: string; color?: string; dim?: boolean }[] = [
       { key: 'model', text: snap.model, color: 'cyan' },
@@ -97,6 +104,8 @@ export const register: Register = on => {
             {p.text}
           </Text>
         ))}
+        <Text dimColor>{` | updated ${formatClock(nowMs)} `}</Text>
+        <Button key="refresh" label="↻" plain onPress={() => void refresh($)} />
       </Box>
     )
   })
